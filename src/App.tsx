@@ -224,12 +224,13 @@ export default function App(){
   },[]);
   useEffect(()=>{if(minimumElapsed&&heroImageReady)setReady(true)},[minimumElapsed,heroImageReady]);
   useEffect(()=>{
-    const hero=heroRef.current,video=heroVideoRef.current,canvas=canvasRef.current;
-    if(!hero||!video||!canvas)return;
+    const hero=heroRef.current,sticky=hero?.querySelector<HTMLElement>(".sticky"),video=heroVideoRef.current,canvas=canvasRef.current;
+    if(!hero||!sticky||!video||!canvas)return;
     const context=canvas.getContext("2d");
     if(!context){console.error("Не удалось создать canvas для кадров видео АРКА 123.");return}
     const useNativeVideo=window.matchMedia("(max-width: 820px), (pointer: coarse)").matches;
     let raf=0,seekInFlight=false,progress=0,lastSeekAt=0,seekTimer=0;
+    const getScrollDistance=()=>Math.max(1,hero.offsetHeight-sticky.offsetHeight);
     const drawFrame=()=>{
       if(video.readyState<2||!video.videoWidth||!video.videoHeight)return;
       const {width,height}=canvas.getBoundingClientRect(),scale=Math.min(window.devicePixelRatio||1,1.5),pixelWidth=Math.max(1,Math.round(width*scale)),pixelHeight=Math.max(1,Math.round(height*scale));
@@ -240,7 +241,7 @@ export default function App(){
     };
     const update=()=>{
       raf=0;
-      const rect=hero.getBoundingClientRect(),scrollDistance=Math.max(1,hero.offsetHeight-window.innerHeight),target=Math.max(0,Math.min(1,-rect.top/scrollDistance));
+      const rect=hero.getBoundingClientRect(),target=Math.max(0,Math.min(1,-rect.top/getScrollDistance()));
       progress+=(target-progress)*.2;
       if(Math.abs(target-progress)<.001)progress=target;
       const next=rect.bottom<=0?"past":target>=.94?"finale":"start";
@@ -260,7 +261,7 @@ export default function App(){
     const schedule=()=>{if(!raf)raf=requestAnimationFrame(update)};
     const onSeeked=()=>{seekInFlight=false;if(!useNativeVideo)drawFrame();schedule()};
     const onFrameReady=()=>{if(useNativeVideo){if(video.readyState>=2){video.pause();setHasVideoFrame(true)}}else drawFrame();schedule()};
-    const onScrollEnd=()=>{window.clearTimeout(seekTimer);seekTimer=window.setTimeout(()=>{video.pause();progress=Math.max(0,Math.min(1,-hero.getBoundingClientRect().top/Math.max(1,hero.offsetHeight-window.innerHeight)));schedule()},120)};
+    const onScrollEnd=()=>{window.clearTimeout(seekTimer);seekTimer=window.setTimeout(()=>{video.pause();progress=Math.max(0,Math.min(1,-hero.getBoundingClientRect().top/getScrollDistance()));schedule()},120)};
     window.addEventListener("scroll",schedule,{passive:true});
     window.addEventListener("resize",schedule);
     video.addEventListener("seeked",onSeeked);
