@@ -418,15 +418,6 @@
 }
 
 @media (max-width: 820px) {
-  .hero .hero-video {
-    z-index: 2;
-    opacity: 1;
-  }
-
-  .hero .video-canvas {
-    display: none;
-  }
-
   .gallery-index-modal {
     gap: 14px;
     padding: 20px;
