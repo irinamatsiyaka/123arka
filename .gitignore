@@ -1,0 +1,27 @@
+node_modules/
+dist/
+build/
+.cache/
+.env*
+.vite/
+vite.config.*.timestamp-*
+*.tsbuildinfo
+*-debug.log*
+logs/
+*.log
+.DS_Store
+.claude-replay.*
+.tmp-*
+/.figma/design-context/
+
+# Keep only the 3D model currently referenced by the app.
+/public/assets/*.glb
+!/public/assets/untitled-beige-surfaces.glb
+/public/assets/3d.mp4
+
+# Platform-managed agentplat state, not project source. In the
+# client-initiated single-repo workspace layout (make's `Path: "."` spec) the
+# repo root IS the workspace root, so these land inside this repo rather than
+# beside it.
+/.plugins/
+/.opencode-skills/

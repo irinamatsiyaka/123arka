@@ -1,0 +1,13 @@
+{
+  "description": "Manage medication schedules effortlessly with reminders, dosage tracking, and refill notifications, ensuring timely adherence to prescriptions.",
+  "robots": {
+    "index": false
+  },
+  "icons": {
+    "icon": "/assets/arka.svg?v=3"
+  },
+  "accessibility": {
+    "addBypassLinks": false,
+    "ignoreReducedMotion": false
+  }
+}

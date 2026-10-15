@@ -1,0 +1,122 @@
+.logo.logo .logo-art {
+  display: block;
+  width: clamp(140px, 16vw, 195px);
+  height: auto;
+  line-height: 0;
+}
+
+.logo.logo .logo-art svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+.preloader .logo.logo .logo-art {
+  clip-path: none;
+  animation: none;
+}
+
+.logo.logo .logo-art path {
+  fill: #223947;
+  stroke: none;
+  stroke-dasharray: none;
+  stroke-dashoffset: 0;
+}
+
+.logo.logo:hover .logo-art path,
+.logo.logo:focus-visible .logo-art path {
+  fill-opacity: 0;
+  stroke: #223947;
+  stroke-width: 2.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 14123;
+  stroke-dashoffset: 14123;
+  animation:
+    logo-trace 2.6s cubic-bezier(.4,0,.2,1) forwards,
+    logo-hover-fill 0.16s 1.52s ease forwards,
+    logo-hover-stroke-fade 0.16s 1.52s ease forwards;
+}
+
+.preloader .logo.logo .logo-art path {
+  fill-opacity: 0;
+  stroke: #223947;
+  stroke-width: 2.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 14123;
+  stroke-dashoffset: 14123;
+  animation: logo-trace 2.6s linear forwards, logo-fill 0.16s 2.05s ease forwards;
+}
+
+.preloader .logo.logo::after,
+.logo.logo:hover::after,
+.logo.logo:focus-visible::after {
+  display: none;
+}
+
+.menu .logo.logo .logo-art,
+.footer .logo.logo .logo-art {
+  width: 240px;
+}
+
+.topbar .logo.logo .logo-art,
+.menu .logo.logo .logo-art,
+.footer .logo.logo .logo-art,
+.preloader .logo.logo .logo-art {
+  filter: brightness(0) invert(1);
+}
+
+.topbar .logo.logo .logo-art {
+  width: clamp(112px, 11vw, 148px);
+  max-height: 54px;
+}
+
+.topbar.solid .logo.logo .logo-art {
+  filter: none;
+}
+
+@keyframes logo-trace {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes logo-fill {
+  to {
+    fill-opacity: 1;
+  }
+}
+
+@keyframes logo-hover-fill {
+  to {
+    fill-opacity: 1;
+  }
+}
+
+@keyframes logo-hover-stroke-fade {
+  to {
+    stroke-opacity: 0;
+  }
+}
+
+@media (max-width: 820px) {
+  .topbar .logo.logo .logo-art {
+    width: min(128px, 40vw);
+    max-height: 48px;
+  }
+
+  .menu .logo.logo .logo-art,
+  .footer .logo.logo .logo-art {
+    width: min(220px, 70vw);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .preloader .logo.logo .logo-art path {
+    fill-opacity: 1;
+    stroke-dashoffset: 0;
+    animation: none;
+  }
+}
