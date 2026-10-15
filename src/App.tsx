@@ -259,8 +259,8 @@ export default function App(){
     };
     const schedule=()=>{if(!raf)raf=requestAnimationFrame(update)};
     const onSeeked=()=>{seekInFlight=false;if(!useNativeVideo)drawFrame();schedule()};
-    const onFrameReady=()=>{if(useNativeVideo){if(video.readyState>=2)setHasVideoFrame(true)}else drawFrame();schedule()};
-    const onScrollEnd=()=>{window.clearTimeout(seekTimer);seekTimer=window.setTimeout(()=>{progress=Math.max(0,Math.min(1,-hero.getBoundingClientRect().top/Math.max(1,hero.offsetHeight-window.innerHeight)));schedule()},120)};
+    const onFrameReady=()=>{if(useNativeVideo){if(video.readyState>=2){video.pause();setHasVideoFrame(true)}}else drawFrame();schedule()};
+    const onScrollEnd=()=>{window.clearTimeout(seekTimer);seekTimer=window.setTimeout(()=>{video.pause();progress=Math.max(0,Math.min(1,-hero.getBoundingClientRect().top/Math.max(1,hero.offsetHeight-window.innerHeight)));schedule()},120)};
     window.addEventListener("scroll",schedule,{passive:true});
     window.addEventListener("resize",schedule);
     video.addEventListener("seeked",onSeeked);
