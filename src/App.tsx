@@ -2,17 +2,80 @@ import { FormEvent, useEffect, useRef, useState } from "react";
 
 const A = "/assets/";
 const nav = [["Об АРКА 123","about"],["Помещение","space"],["Услуги","services"],["Галерея","gallery"],["Тарифы","tariffs"],["Отзывы","reviews"]];
-const archivePhotos = Object.entries(import.meta.glob<string>(
-  ["../photo/*.{png,jpg,jpeg}", "../photo_without_effects/*.{png,jpg,jpeg}"],
-  { eager: true, query: "?url", import: "default" },
-))
-  .filter(([path]) =>
+const archivePhotoPaths = [
+  "/photo/01.png",
+  "/photo/1.png",
+  "/photo/10.png",
+  "/photo/11.png",
+  "/photo/12.png",
+  "/photo/13 (1).png",
+  "/photo/14.png",
+  "/photo/15.png",
+  "/photo/16.png",
+  "/photo/17.png",
+  "/photo/18.png",
+  "/photo/19.png",
+  "/photo/2 (1).png",
+  "/photo/2 (2).png",
+  "/photo/20.png",
+  "/photo/21.png",
+  "/photo/22.jpeg",
+  "/photo/3.png",
+  "/photo/4.png",
+  "/photo/5.png",
+  "/photo/6.png",
+  "/photo/7.png",
+  "/photo/8.png",
+  "/photo/9.png",
+  "/photo_without_effects/photo_10_2026-09-21_17-01-49.jpg",
+  "/photo_without_effects/photo_11_2026-09-21_17-01-49.jpg",
+  "/photo_without_effects/photo_12_2026-09-21_17-01-49.jpg",
+  "/photo_without_effects/photo_13_2026-09-21_17-01-49.jpg",
+  "/photo_without_effects/photo_14_2026-09-21_17-01-49.jpg",
+  "/photo_without_effects/photo_15_2026-09-21_17-01-49.jpg",
+  "/photo_without_effects/photo_16_2026-09-21_17-01-49.jpg",
+  "/photo_without_effects/photo_17_2026-09-21_17-01-49.jpg",
+  "/photo_without_effects/photo_18_2026-09-21_17-01-49.jpg",
+  "/photo_without_effects/photo_19_2026-09-21_17-01-49.jpg",
+  "/photo_without_effects/photo_1_2026-09-21_17-01-49.jpg",
+  "/photo_without_effects/photo_1_2026-09-21_17-02-11.jpg",
+  "/photo_without_effects/photo_1_2026-09-21_17-03-29.jpg",
+  "/photo_without_effects/photo_1_2026-09-21_17-27-14.jpg",
+  "/photo_without_effects/photo_1_2026-09-21_18-00-11.jpg",
+  "/photo_without_effects/photo_2_2026-09-21_17-01-49.jpg",
+  "/photo_without_effects/photo_2_2026-09-21_17-02-11.jpg",
+  "/photo_without_effects/photo_2_2026-09-21_17-03-29.jpg",
+  "/photo_without_effects/photo_2_2026-09-21_17-27-14.jpg",
+  "/photo_without_effects/photo_2_2026-09-21_18-00-11.jpg",
+  "/photo_without_effects/photo_3_2026-09-21_17-01-49.jpg",
+  "/photo_without_effects/photo_3_2026-09-21_17-03-29.jpg",
+  "/photo_without_effects/photo_3_2026-09-21_17-27-14.jpg",
+  "/photo_without_effects/photo_3_2026-09-21_18-00-11.jpg",
+  "/photo_without_effects/photo_4_2026-09-21_17-01-49.jpg",
+  "/photo_without_effects/photo_4_2026-09-21_17-03-29.jpg",
+  "/photo_without_effects/photo_4_2026-09-21_17-27-14.jpg",
+  "/photo_without_effects/photo_4_2026-09-21_18-00-11.jpg",
+  "/photo_without_effects/photo_5_2026-09-21_17-01-49.jpg",
+  "/photo_without_effects/photo_5_2026-09-21_17-03-29.jpg",
+  "/photo_without_effects/photo_5_2026-09-21_17-27-14.jpg",
+  "/photo_without_effects/photo_6_2026-09-21_17-01-49.jpg",
+  "/photo_without_effects/photo_6_2026-09-21_17-03-29.jpg",
+  "/photo_without_effects/photo_6_2026-09-21_17-27-14.jpg",
+  "/photo_without_effects/photo_7_2026-09-21_17-01-49.jpg",
+  "/photo_without_effects/photo_7_2026-09-21_17-03-29.jpg",
+  "/photo_without_effects/photo_7_2026-09-21_17-27-14.jpg",
+  "/photo_without_effects/photo_8_2026-09-21_17-01-49.jpg",
+  "/photo_without_effects/photo_8_2026-09-21_17-03-29.jpg",
+  "/photo_without_effects/photo_9_2026-09-21_17-01-49.jpg",
+];
+const archivePhotos = archivePhotoPaths
+  .filter(path =>
     !/\/(?:6\.png|12\.png|22\.jpeg)$/.test(path) &&
     !path.endsWith("/photo_1_2026-09-21_17-01-49.jpg") &&
     !path.endsWith("/photo_2_2026-09-21_17-01-49.jpg"),
   )
-  .sort(([a], [b]) => a.localeCompare(b))
-  .map(([src], index) => ({
+  .sort((a, b) => a.localeCompare(b))
+  .map((src, index) => ({
     src,
     alt: `Фотография АРКА 123 из архива ${index + 1}`,
   }));
